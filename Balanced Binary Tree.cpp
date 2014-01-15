@@ -1,5 +1,31 @@
 // Balanced Binary Tree
 
+//approach 1
+
+int getHeight(TreeNode* root){
+    if(root == NULL){
+        return 0;
+    }
+    int left = getHeight(root->left);
+    int right = getHeight(root->right);
+    if(left == -1 || right == -1){
+        return -1;
+    }
+    if(abs(left - right) <= 1){
+        return left<right ? right+1 : left+1;
+    }
+    return -1;
+}
+
+bool isBalanced(TreeNode *root) {
+    if(getHeight(root) == -1){
+        return false;
+    }
+    return true;
+}
+
+
+//approach 2
 
 int getHeight(TreeNode* root){
     if(root == NULL){
