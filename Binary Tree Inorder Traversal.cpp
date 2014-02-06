@@ -3,6 +3,27 @@
 
 vector<int> inorderTraversal(TreeNode *root) {
     vector<int> ret;
+    stack<TreeNode*> q;
+    TreeNode* curr = root;
+    while(!q.empty() || curr){
+        if(curr){
+            q.push(curr);
+            curr  = curr->left;
+        }
+        else{
+            curr = q.top();
+            q.pop();
+            ret.push_back(curr->val);
+            curr = curr->right;
+        }
+    }
+    return ret;
+}
+
+//or
+
+vector<int> inorderTraversal(TreeNode *root) {
+    vector<int> ret;
     if(root == NULL){
         return ret;
     }
