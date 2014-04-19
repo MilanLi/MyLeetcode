@@ -1,5 +1,46 @@
 // Longest Palindromic Substring
 
+public String longestPalindrome(String s) {
+    int len = s.length();
+    int[][] DP = new int[len][len];
+    // length = 1
+    for(int i = 0; i < len; i++){
+        DP[i][i] = 1;
+    }
+    // length = 2
+    for(int i = 0; i < len-1; i++){
+        if(s.charAt(i) == s.charAt(i+1)){
+            DP[i][i+1] = 2;
+        }
+    }
+    
+    // length > 2
+    for(int l = 3; l <= len; l++){
+        for(int i = 0; i <= len-l; i++){
+            int j = i + l -1;
+            if(s.charAt(i) == s.charAt(j) && DP[i+1][j-1] != 0){
+                DP[i][j] = DP[i+1][j-1]+2;
+            }
+        }
+    }
+    
+    //find the longest one
+    int longest = 0;
+    int start = 0;
+    int end = 0;
+    for(int i = 0; i < len; i++){
+        for(int j = i; j < len; j++){
+            if(DP[i][j] > longest){
+              longest = DP[i][j];
+                start = i;
+                end = j;
+            }
+        }
+    }
+    return s.substring(start, end+1);
+    
+}
+
 
 //O(n2) time and O(n2) space dynamic programming
 
